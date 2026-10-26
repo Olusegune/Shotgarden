@@ -289,6 +289,12 @@ export function StudioTemplate({
       ),
     []
   )
+  useEffect(() => {
+    const requested = new URL(window.location.href).searchParams.get("surface")
+    if (requested !== "image" && requested !== "video") return
+    const first = MODELS.find((entry) => entry.surface === requested)
+    if (first && surface !== requested) setActiveModel(first.id)
+  }, [setActiveModel, surface])
   const models = useMemo(
     () => MODELS.filter((m) => m.surface === surface),
     [surface]

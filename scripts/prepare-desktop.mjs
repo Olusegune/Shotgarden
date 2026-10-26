@@ -19,13 +19,22 @@ await cp(path.join(root, "public"), path.join(output, "public"), { recursive: tr
 // Install the full production dependency set, then keep it outside node_modules so
 // electron-builder includes it as an ordinary resource directory.
 await rename(path.join(output, "node_modules"), path.join(output, "traced-modules"))
-execFileSync(process.platform === "win32" ? "npm.cmd" : "npm", [
+const npmArgs = [
   "install",
   "--omit=dev",
   "--ignore-scripts",
   "--no-package-lock",
   "--legacy-peer-deps",
-], { cwd: output, stdio: "inherit" })
+]
+if (process.platform === "win32") {
+  execFileSync("npm.cmd", npmArgs, {
+    cwd: output,
+    stdio: "inherit",
+    shell: true,
+  })
+} else {
+  execFileSync("npm", npmArgs, { cwd: output, stdio: "inherit" })
+}
 await rename(path.join(output, "node_modules"), path.join(output, "vendor"))
 await rm(path.join(output, "traced-modules"), { recursive: true, force: true })
 

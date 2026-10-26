@@ -1,10 +1,11 @@
 /* eslint-disable @typescript-eslint/no-require-imports */
-const { app, BrowserWindow, shell } = require("electron")
+const { app, BrowserWindow, Menu, dialog, shell } = require("electron")
 const { spawn } = require("node:child_process")
 const http = require("node:http")
 const path = require("node:path")
 
 let serverProcess
+const studioUrl = "http://127.0.0.1:32109/studio"
 
 function waitForServer(url, attempts = 100) {
   return new Promise((resolve, reject) => {
@@ -54,7 +55,7 @@ async function createWindow() {
     minHeight: 680,
     backgroundColor: "#0c0d0f",
     title: "Shotgarden",
-    autoHideMenuBar: true,
+    autoHideMenuBar: false,
     webPreferences: {
       contextIsolation: true,
       nodeIntegration: false,
@@ -66,7 +67,78 @@ async function createWindow() {
     void shell.openExternal(url)
     return { action: "deny" }
   })
-  await window.loadURL(`http://127.0.0.1:${port}`)
+  Menu.setApplicationMenu(createAppMenu(window))
+  await window.loadURL(studioUrl)
+}
+
+function createAppMenu(window) {
+  const go = (path) => void window.loadURL(`${studioUrl}${path}`)
+  return Menu.buildFromTemplate([
+    {
+      label: "File",
+      submenu: [
+        { label: "New Studio", accelerator: "Ctrl+N", click: () => go("") },
+        { type: "separator" },
+        { role: "close", label: "Close Window" },
+        { role: "quit", label: "Exit Shotgarden" },
+      ],
+    },
+    {
+      label: "Edit",
+      submenu: [
+        { role: "undo" }, { role: "redo" }, { type: "separator" },
+        { role: "cut" }, { role: "copy" }, { role: "paste" },
+        { role: "selectAll" },
+      ],
+    },
+    {
+      label: "View",
+      submenu: [
+        { role: "reload" }, { role: "forceReload" }, { type: "separator" },
+        { role: "resetZoom" }, { role: "zoomIn" }, { role: "zoomOut" },
+        { type: "separator" }, { role: "togglefullscreen" },
+      ],
+    },
+    {
+      label: "Generate",
+      submenu: [
+        { label: "Image Studio", accelerator: "Ctrl+1", click: () => go("?surface=image") },
+        { label: "Video Studio", accelerator: "Ctrl+2", click: () => go("?surface=video") },
+        { type: "separator" },
+        {
+          label: "Focus Prompt",
+          accelerator: "Ctrl+L",
+          click: () => void window.webContents.executeJavaScript(
+            "document.querySelector('textarea')?.focus()"
+          ),
+        },
+      ],
+    },
+    {
+      label: "Window",
+      submenu: [{ role: "minimize" }, { role: "zoom" }],
+    },
+    {
+      label: "Help",
+      submenu: [
+        {
+          label: "Shotgarden on GitHub",
+          click: () => void shell.openExternal("https://github.com/Olusegune/Shotgarden"),
+        },
+        { type: "separator" },
+        {
+          label: "About Shotgarden",
+          click: () => void dialog.showMessageBox(window, {
+            type: "info",
+            title: "About Shotgarden",
+            message: "Shotgarden",
+            detail: "A local-first AI image and video studio for Windows.",
+            buttons: ["OK"],
+          }),
+        },
+      ],
+    },
+  ])
 }
 
 app.whenReady().then(createWindow).catch((error) => {
