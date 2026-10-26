@@ -14,6 +14,8 @@
 # next.js
 /.next/
 /out/
+/desktop-runtime/
+/desktop-dist/
 
 # production
 /build

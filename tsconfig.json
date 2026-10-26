@@ -31,5 +31,11 @@
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts"
   ],
-  "exclude": ["node_modules", "_reference-app-templates", "shotgarden"]
+  "exclude": [
+    "node_modules",
+    "desktop-runtime",
+    "desktop-dist",
+    "_reference-app-templates",
+    "shotgarden"
+  ]
 }

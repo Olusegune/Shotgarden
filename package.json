@@ -2,6 +2,7 @@
   "name": "shotgarden",
   "version": "0.0.1",
   "type": "module",
+  "main": "electron/main.cjs",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -13,7 +14,9 @@
     "typecheck": "tsc --noEmit",
     "test": "node --test tests/*.test.mjs",
     "models": "node scripts/sync-models.mjs",
-    "registry:build": "node scripts/sync-models.mjs && shadcn build"
+    "registry:build": "node scripts/sync-models.mjs && shadcn build",
+    "desktop:prepare": "node scripts/prepare-desktop.mjs",
+    "desktop:build": "pnpm build && pnpm desktop:prepare && electron-builder --win nsis portable"
   },
   "dependencies": {
     "@auth/mongodb-adapter": "^3.11.3",
@@ -41,11 +44,31 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "electron": "^45.0.0",
+    "electron-builder": "^26.18.0",
     "eslint": "^9.39.5",
     "eslint-config-next": "16.3.8",
     "prettier": "^3.9.6",
     "prettier-plugin-tailwindcss": "^0.8.1",
     "tailwindcss": "^4",
     "typescript": "^5"
+  },
+  "build": {
+    "appId": "com.shotgarden.desktop",
+    "productName": "Shotgarden",
+    "asar": true,
+    "directories": { "output": "desktop-dist" },
+    "files": ["electron/**/*", "package.json"],
+    "extraResources": [{ "from": "desktop-runtime", "to": "desktop-runtime" }],
+    "win": {
+      "target": ["nsis", "portable"],
+      "artifactName": "Shotgarden-${version}-${arch}.${ext}"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true
+    }
   }
 }
