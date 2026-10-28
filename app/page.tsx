@@ -1,13 +1,14 @@
 import Link from "next/link"
+import Image from "next/image"
 import { ArrowRight, AudioLines, ImageIcon, Play, Sparkles } from "lucide-react"
 
 import { SiteHeader } from "@/components/site-header"
 import { brand } from "@/lib/brand"
 
 const tools = [
-  { icon: ImageIcon, eyebrow: "IMAGE", title: "Build the frame", copy: "Create art-directed stills, campaigns, characters, and concepts with the strongest image models." },
-  { icon: Play, eyebrow: "VIDEO", title: "Put it in motion", copy: "Move from a prompt or reference frame to cinematic motion without leaving your project." },
-  { icon: AudioLines, eyebrow: "AUDIO", title: "Give it a voice", copy: "Generate voice, sound, and music alongside the visuals they were made for." },
+  { icon: ImageIcon, image: "/presets/cinematic/editorial-still.webp", eyebrow: "IMAGE", title: "Build the frame", copy: "Create art-directed stills, campaigns, characters, and concepts with the strongest image models." },
+  { icon: Play, image: "/presets/cinematic/product-hero.webp", eyebrow: "VIDEO", title: "Put it in motion", copy: "Move from a prompt or reference frame to cinematic motion without leaving your project." },
+  { icon: AudioLines, image: "/presets/cinematic/lifestyle-home.webp", eyebrow: "AUDIO", title: "Give it a voice", copy: "Generate voice, sound, and music alongside the visuals they were made for." },
 ] as const
 
 export default function HomePage() {
@@ -37,14 +38,20 @@ export default function HomePage() {
         </div>
       </section>
       <section className="mx-auto grid max-w-7xl gap-4 px-5 pb-24 md:grid-cols-3">
-        {tools.map(({ icon: Icon, eyebrow, title, copy }) => (
-          <Link href={`/studio?surface=${eyebrow.toLowerCase()}`} key={title} className="group min-h-72 rounded-3xl border border-white/8 bg-white/[.025] p-7 transition hover:-translate-y-1 hover:border-primary/30 hover:bg-primary/[.035]">
-            <div className="mb-20 flex items-center justify-between">
-              <span className="font-mono text-xs tracking-[.18em] text-primary">{eyebrow}</span>
-              <Icon className="size-5 text-muted-foreground transition group-hover:text-primary" />
+        {tools.map(({ icon: Icon, image, eyebrow, title, copy }) => (
+          <Link href={`/studio?surface=${eyebrow.toLowerCase()}`} key={title} className="group overflow-hidden rounded-3xl border border-white/8 bg-white/[.025] transition hover:-translate-y-1 hover:border-primary/30 hover:bg-primary/[.035]">
+            <div className="relative h-48 overflow-hidden">
+              <Image src={image} alt="" fill sizes="(min-width: 768px) 33vw, 100vw" className="object-cover transition duration-500 group-hover:scale-[1.03]" />
+              <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
             </div>
-            <h2 className="font-heading text-2xl font-semibold uppercase">{title}</h2>
-            <p className="mt-3 leading-6 text-muted-foreground">{copy}</p>
+            <div className="p-7 pt-4">
+              <div className="mb-7 flex items-center justify-between">
+                <span className="font-mono text-xs tracking-[.18em] text-primary">{eyebrow}</span>
+                <Icon className="size-5 text-muted-foreground transition group-hover:text-primary" />
+              </div>
+              <h2 className="font-heading text-2xl font-semibold uppercase">{title}</h2>
+              <p className="mt-3 leading-6 text-muted-foreground">{copy}</p>
+            </div>
           </Link>
         ))}
       </section>

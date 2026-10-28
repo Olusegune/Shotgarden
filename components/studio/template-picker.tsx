@@ -20,14 +20,12 @@ import { cn } from "@/lib/utils"
  * `ExamplePresets`.
  */
 
-// PLACEHOLDER ASSETS — demo art in /presets/*.svg. An adapted app replaces
-// every template with bespoke, app-specific examples and real preview media.
-const THUMBS = [
-  "/presets/placeholder-1.svg",
-  "/presets/placeholder-2.svg",
-  "/presets/placeholder-3.svg",
-  "/presets/placeholder-4.svg",
-] as const
+const THUMBS = {
+  product: "/presets/cinematic/product-hero.webp",
+  ugc: "/presets/cinematic/ugc-review.webp",
+  editorial: "/presets/cinematic/editorial-still.webp",
+  lifestyle: "/presets/cinematic/lifestyle-home.webp",
+} as const
 
 export interface TemplateItem {
   id: string
@@ -45,7 +43,6 @@ export interface TemplateItem {
   settings?: Record<string, unknown>
 }
 
-// PLACEHOLDER content — replace when adapting.
 export const TEMPLATES: TemplateItem[] = [
   {
     id: "product-hero",
@@ -53,7 +50,7 @@ export const TEMPLATES: TemplateItem[] = [
     subtitle: "Studio lighting, larger than life",
     category: "commercial",
     kind: "video",
-    images: [THUMBS[0], THUMBS[1], THUMBS[2]],
+    images: [THUMBS.product, THUMBS.product, THUMBS.product],
     icon: BatteryFull,
     prompt:
       "Cinematic product hero shot on a dark studio backdrop, slow orbit, soft rim light, dust particles catching the light.",
@@ -64,7 +61,7 @@ export const TEMPLATES: TemplateItem[] = [
     subtitle: "Handheld, creator-style",
     category: "ugc",
     kind: "video",
-    images: [THUMBS[1], THUMBS[3], THUMBS[0]],
+    images: [THUMBS.ugc, THUMBS.ugc, THUMBS.ugc],
     icon: WandSparkles,
     prompt:
       "Handheld creator-style review filmed on a phone in a sunny kitchen, natural light, casual framing, subtle camera shake.",
@@ -75,7 +72,7 @@ export const TEMPLATES: TemplateItem[] = [
     subtitle: "Magazine-grade key visual",
     category: "commercial",
     kind: "image",
-    images: [THUMBS[2], THUMBS[0], THUMBS[1]],
+    images: [THUMBS.editorial, THUMBS.editorial, THUMBS.editorial],
     icon: Calendar,
     prompt:
       "Editorial fashion still, 85mm, shallow depth of field, muted palette, single hard light from the left.",
@@ -86,7 +83,7 @@ export const TEMPLATES: TemplateItem[] = [
     subtitle: "Warm three-shot story",
     category: "ugc",
     kind: "image",
-    images: [THUMBS[3], THUMBS[2], THUMBS[0]],
+    images: [THUMBS.lifestyle, THUMBS.lifestyle, THUMBS.lifestyle],
     icon: House,
     prompt:
       "Warm lifestyle photo of a couple at home in the evening, lamp light, film grain, candid moment.",

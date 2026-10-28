@@ -26,13 +26,24 @@ export interface MyProjectsProps {
   className?: string
 }
 
+const CURATED_PREVIEWS = [
+  "/presets/cinematic/product-hero.webp",
+  "/presets/cinematic/ugc-review.webp",
+  "/presets/cinematic/editorial-still.webp",
+  "/presets/cinematic/lifestyle-home.webp",
+  "/presets/cinematic/product-hero.webp",
+] as const
+
 function previewImages(
   project: MyProjectsProject | undefined,
   matching: readonly string[]
 ) {
   return Array.from(
     { length: 5 },
-    (_, i) => matching[i] ?? (i === 0 ? project?.cover : undefined)
+    (_, i) =>
+      matching[i] ??
+      (i === 0 ? project?.cover : undefined) ??
+      (project ? undefined : CURATED_PREVIEWS[i])
   )
 }
 

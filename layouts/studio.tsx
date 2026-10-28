@@ -60,11 +60,10 @@ import { useRuns } from "@/lib/studio/use-runs"
  * Explore / My Projects section, and the UserGenerations feed.
  */
 
-// PLACEHOLDER ASSETS — replaced by the app's real outputs as soon as there are three.
 const HERO_FALLBACKS = [
-  "/presets/placeholder-2.svg",
-  "/presets/placeholder-1.svg",
-  "/presets/placeholder-3.svg",
+  "/presets/cinematic/product-hero.webp",
+  "/presets/cinematic/editorial-still.webp",
+  "/presets/cinematic/lifestyle-home.webp",
 ] as const
 
 const HERO_GLOW =
