@@ -1,5 +1,7 @@
 {
   "name": "shotgarden",
+  "description": "A local-first AI image and video studio for Windows.",
+  "author": "Olusegune",
   "version": "0.0.1",
   "type": "module",
   "main": "electron/main.cjs",
@@ -59,11 +61,27 @@
     "asar": true,
     "directories": { "output": "desktop-dist" },
     "files": ["electron/**/*", "package.json"],
-    "extraResources": [{ "from": "desktop-runtime", "to": "desktop-runtime" }],
+    "extraResources": [
+      { "from": "desktop-runtime", "to": "desktop-runtime" },
+      {
+        "from": "electron/assets/shotgarden-project.ico",
+        "to": "shotgarden-project.ico"
+      }
+    ],
     "win": {
       "target": ["nsis", "portable"],
+      "icon": "electron/assets/shotgarden.ico",
       "artifactName": "Shotgarden-${version}-${arch}.${ext}"
     },
+    "fileAssociations": [
+      {
+        "ext": "shotgarden",
+        "name": "Shotgarden Project",
+        "description": "Shotgarden creative project",
+        "icon": "electron/assets/shotgarden-project.ico",
+        "role": "Editor"
+      }
+    ],
     "nsis": {
       "oneClick": false,
       "allowToChangeInstallationDirectory": true,
