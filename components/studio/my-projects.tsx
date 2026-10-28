@@ -27,11 +27,11 @@ export interface MyProjectsProps {
 }
 
 const CURATED_PREVIEWS = [
-  "/presets/cinematic/product-hero.webp",
-  "/presets/cinematic/ugc-review.webp",
-  "/presets/cinematic/editorial-still.webp",
-  "/presets/cinematic/lifestyle-home.webp",
-  "/presets/cinematic/product-hero.webp",
+  "/presets/cinematic/product-hero.jpg",
+  "/presets/cinematic/ugc-review.jpg",
+  "/presets/cinematic/editorial-still.jpg",
+  "/presets/cinematic/lifestyle-home.jpg",
+  "/presets/cinematic/product-hero.jpg",
 ] as const
 
 function previewImages(
@@ -79,7 +79,7 @@ function Mosaic({ images }: { images: Array<string | undefined> }) {
 }
 
 const CARD =
-  "relative flex h-[248px] min-w-0 flex-col gap-3 overflow-hidden rounded-2xl border border-white/10 bg-card p-3 shadow-[0_8px_24px_rgba(0,0,0,0.25)]"
+  "relative flex h-[248px] min-w-0 flex-col gap-3 overflow-hidden rounded-xl border border-white/10 bg-card p-3 shadow-[0_8px_24px_rgba(0,0,0,0.25)]"
 
 export function ProjectCard({
   title,
@@ -104,7 +104,7 @@ export function ProjectCard({
       <button
         type="button"
         aria-label={`Open ${title}`}
-        className="absolute inset-0 z-[1] cursor-pointer rounded-2xl focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none focus-visible:ring-inset"
+        className="absolute inset-0 z-[1] cursor-pointer rounded-xl focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none focus-visible:ring-inset"
         onClick={onOpen}
       />
     </article>

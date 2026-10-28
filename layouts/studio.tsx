@@ -61,10 +61,11 @@ import { useRuns } from "@/lib/studio/use-runs"
  */
 
 const HERO_FALLBACKS = [
-  "/presets/cinematic/product-hero.webp",
-  "/presets/cinematic/editorial-still.webp",
-  "/presets/cinematic/lifestyle-home.webp",
+  "/presets/cinematic/product-hero.jpg",
+  "/presets/cinematic/editorial-still.jpg",
+  "/presets/cinematic/lifestyle-home.jpg",
 ] as const
+const STUDIO_HERO = "/presets/cinematic/studio-hero.jpg"
 
 const HERO_GLOW =
   "radial-gradient(60% 80% at 50% 0%, rgba(160,164,170,0.14) 0%, rgba(160,164,170,0.05) 42%, transparent 72%)"
@@ -136,10 +137,29 @@ function HomeState({
           className="flex w-full min-w-0 flex-col items-center gap-8"
         >
           <div className="flex flex-col items-center gap-5">
-            <HeroComposition images={images} alt="Recent Studio outputs" />
+            <HeroComposition
+              images={images}
+              featured={items.some((item) => item.status === "ready" && item.src) ? undefined : STUDIO_HERO}
+              alt="A cinematic world growing from a film set"
+            />
             <h1 className="max-w-[640px] text-center text-q-accent-lg-bold uppercase">
               {title}
             </h1>
+            <ol className="flex flex-wrap items-center justify-center gap-x-3 gap-y-2 text-xs font-medium text-muted-foreground">
+              {[
+                "Choose a format",
+                "Describe it or pick a preset",
+                "Generate and refine",
+              ].map((step, index) => (
+                <li key={step} className="flex items-center gap-2">
+                  {index > 0 && <span aria-hidden className="text-border">→</span>}
+                  <span className="flex size-5 items-center justify-center rounded border border-border bg-card text-[10px] text-foreground">
+                    {index + 1}
+                  </span>
+                  {step}
+                </li>
+              ))}
+            </ol>
           </div>
           <StudioPromptBox {...dock} />
         </div>
@@ -147,7 +167,7 @@ function HomeState({
         <div className="flex w-full max-w-[900px] flex-col items-start gap-5">
           <Tabs
             variant="segmented"
-            shape="pill"
+            shape="rounded"
             value={tab}
             onValueChange={(v) => setTab(String(v))}
           >

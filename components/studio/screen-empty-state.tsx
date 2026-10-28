@@ -45,15 +45,15 @@ export function ScreenEmptyState({
       />
       <div className="relative flex w-full max-w-[444px] flex-col items-center gap-6">
         <div className="relative h-[105px] w-full" aria-hidden>
-          <div className="absolute top-2.5 left-0 h-[85px] w-[38%] overflow-hidden rounded-2xl opacity-70">
+          <div className="absolute top-2.5 left-0 h-[85px] w-[38%] overflow-hidden rounded-md opacity-70">
             <img src={images[0]} alt="" className="size-full object-cover" />
             <span className="absolute inset-0 bg-black/30" />
           </div>
-          <div className="absolute top-2.5 right-0 h-[85px] w-[38%] overflow-hidden rounded-2xl opacity-70">
+          <div className="absolute top-2.5 right-0 h-[85px] w-[38%] overflow-hidden rounded-md opacity-70">
             <img src={images[2]} alt="" className="size-full object-cover" />
             <span className="absolute inset-0 bg-black/30" />
           </div>
-          <div className="absolute inset-y-0 left-1/2 z-[1] w-[41.5%] -translate-x-1/2 overflow-hidden rounded-[20px] border border-white/10 bg-white/5 shadow-[inset_0_0_20px_rgba(255,255,255,0.48),0_8px_24px_rgba(0,0,0,0.24)]">
+          <div className="absolute inset-y-0 left-1/2 z-[1] w-[41.5%] -translate-x-1/2 overflow-hidden rounded-lg border border-white/10 bg-white/5 shadow-[inset_0_0_20px_rgba(255,255,255,0.48),0_8px_24px_rgba(0,0,0,0.24)]">
             <img src={images[1]} alt="" className="size-full object-cover" />
           </div>
         </div>

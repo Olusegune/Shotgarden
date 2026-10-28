@@ -2,7 +2,7 @@
   "name": "shotgarden",
   "description": "A local-first AI image and video studio for Windows.",
   "author": "Olusegune",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "type": "module",
   "main": "electron/main.cjs",
   "private": true,

@@ -25,16 +25,16 @@ export function SiteHeader() {
         </Link>
         <nav className="hidden flex-1 items-center gap-1 lg:flex" aria-label="Primary navigation">
           {links.map(([label, href]) => (
-            <Link key={label} href={href} className="rounded-full px-3 py-2 text-sm text-muted-foreground transition hover:bg-white/6 hover:text-foreground">
+            <Link key={label} href={href} className="rounded-md px-3 py-2 text-sm text-muted-foreground transition hover:bg-white/6 hover:text-foreground">
               {label}
             </Link>
           ))}
         </nav>
         <div className="ml-auto flex items-center gap-2">
-          <Link href="/login" className="rounded-full px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground">
+          <Link href="/login" className="rounded-md px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground">
             Log in
           </Link>
-          <Link href="/studio" className="rounded-full bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground transition hover:brightness-95">
+          <Link href="/studio" className="rounded-md bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground transition hover:brightness-95">
             Start creating
           </Link>
         </div>

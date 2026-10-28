@@ -1,12 +1,25 @@
 /* eslint-disable @typescript-eslint/no-require-imports */
-const { app, BrowserWindow, Menu, dialog, shell } = require("electron")
+const { app, BrowserWindow, Menu, dialog, session, shell } = require("electron")
 const { execFileSync, spawn } = require("node:child_process")
 const fs = require("node:fs/promises")
 const http = require("node:http")
+const net = require("node:net")
 const path = require("node:path")
 
 let serverProcess
-const studioUrl = "http://127.0.0.1:32109/studio"
+
+function openPort() {
+  return new Promise((resolve, reject) => {
+    const probe = net.createServer()
+    probe.unref()
+    probe.on("error", reject)
+    probe.listen(0, "127.0.0.1", () => {
+      const address = probe.address()
+      const port = typeof address === "object" && address ? address.port : 32109
+      probe.close(() => resolve(port))
+    })
+  })
+}
 
 function assetPath(name) {
   return path.join(__dirname, "assets", name)
@@ -76,7 +89,8 @@ function waitForServer(url, attempts = 100) {
 
 async function createWindow() {
   const splash = createSplashWindow()
-  const port = 32109
+  const port = await openPort()
+  const studioUrl = `http://127.0.0.1:${port}/studio`
   const runtime = app.isPackaged
     ? path.join(process.resourcesPath, "desktop-runtime")
     : path.join(__dirname, "..", "desktop-runtime")
@@ -120,7 +134,8 @@ async function createWindow() {
     void shell.openExternal(url)
     return { action: "deny" }
   })
-  Menu.setApplicationMenu(createAppMenu(window))
+  await session.defaultSession.clearCache()
+  Menu.setApplicationMenu(createAppMenu(window, studioUrl))
   window.once("ready-to-show", () => {
     splash.close()
     window.show()
@@ -132,7 +147,7 @@ async function createWindow() {
   if (projectPath) await openProject(window, projectPath)
 }
 
-function createAppMenu(window) {
+function createAppMenu(window, studioUrl) {
   const go = (path) => void window.loadURL(`${studioUrl}${path}`)
   return Menu.buildFromTemplate([
     {

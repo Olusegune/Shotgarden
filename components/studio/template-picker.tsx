@@ -21,10 +21,10 @@ import { cn } from "@/lib/utils"
  */
 
 const THUMBS = {
-  product: "/presets/cinematic/product-hero.webp",
-  ugc: "/presets/cinematic/ugc-review.webp",
-  editorial: "/presets/cinematic/editorial-still.webp",
-  lifestyle: "/presets/cinematic/lifestyle-home.webp",
+  product: "/presets/cinematic/product-hero.jpg",
+  ugc: "/presets/cinematic/ugc-review.jpg",
+  editorial: "/presets/cinematic/editorial-still.jpg",
+  lifestyle: "/presets/cinematic/lifestyle-home.jpg",
 } as const
 
 export interface TemplateItem {
@@ -146,7 +146,7 @@ export function TemplateCard({
       role="button"
       tabIndex={0}
       aria-label={`Use template: ${template.title}`}
-      className="relative flex cursor-pointer flex-col gap-2 rounded-[20px] bg-white/5 p-2 shadow-[0_2px_6px_rgba(0,0,0,0.15)] transition-[transform,background-color] duration-200 hover:z-[1] hover:-translate-y-0.5 hover:bg-white/8 focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none motion-reduce:hover:translate-y-0"
+      className="relative flex cursor-pointer flex-col gap-2 rounded-xl bg-white/5 p-2 shadow-[0_2px_6px_rgba(0,0,0,0.15)] transition-[transform,background-color] duration-200 hover:z-[1] hover:-translate-y-0.5 hover:bg-white/8 focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none motion-reduce:hover:translate-y-0"
       onClick={() => onTry(template)}
       onKeyDown={onKeyDown}
     >
@@ -168,7 +168,7 @@ export function TemplateCard({
             </div>
           ))
         ) : (
-          <div className="min-w-0 flex-1 overflow-hidden rounded-2xl border border-white/10">
+          <div className="min-w-0 flex-1 overflow-hidden rounded-lg border border-white/10">
             <img
               src={template.images[0]}
               alt={template.title}
@@ -189,7 +189,7 @@ export function TemplateCard({
         </div>
         <Button
           size="sm"
-          className="rounded-full font-semibold"
+          className="rounded-md font-semibold"
           onClick={(event) => {
             event.stopPropagation()
             onTry(template)

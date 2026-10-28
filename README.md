@@ -29,6 +29,7 @@ Models live in `generation/catalog/models/`, one model family per file. Run `pnp
 
 ## Documentation
 
+- `docs/USER_GUIDE.md` — screenshot-led Windows quick start, shortcuts, providers, and troubleshooting
 - `docs/implementation-plan.md` — delivery sequence and external checkpoints
 - `docs/decisions.md` — product and architecture decisions
 
